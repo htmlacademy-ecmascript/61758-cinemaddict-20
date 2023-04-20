@@ -1,0 +1,30 @@
+name: build
+
+on:
+  - pull_request
+
+jobs:
+  start_build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '18.x'
+
+      - name: build
+        run: |
+          NODE_ENV=development npm install && npm run build
+          if [[ $(find . -maxdepth 1 -type d -name 'build') == '' ]]
+          then
+            cp -r markup build
+          fi
+          mkdir actions_artifacts
+          echo "prev.event.number=${{ github.event.number }}" > actions_artifacts/env
+          mv build actions_artifacts
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: actions_artifacts
+          path: actions_artifacts
