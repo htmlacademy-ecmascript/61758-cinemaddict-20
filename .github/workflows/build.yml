@@ -1,4 +1,4 @@
-name: build
+name: Build
 
 on:
   - pull_request
@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: '18.x'
 
-      - name: build
+      - name: Build
         run: |
           NODE_ENV=development npm install && npm run build
           if [[ $(find . -maxdepth 1 -type d -name 'build') == '' ]]
@@ -24,7 +24,8 @@ jobs:
           echo "prev.event.number=${{ github.event.number }}" > actions_artifacts/env
           mv build actions_artifacts
 
-      - uses: actions/upload-artifact@master
+      - name: Save build
+        uses: actions/upload-artifact@master
         with:
           name: actions_artifacts
           path: actions_artifacts
