@@ -20,7 +20,7 @@ jobs:
           NODE_ENV=development npm install && npm run build --if-present
           if [[ $(find . -maxdepth 1 -type d -name 'build') == '' ]]
           then
-            cp -r markup build
+            cp -r public build
           fi
           mkdir actions_artifacts
           echo "prev.event.number=${{ github.event.number }}" > actions_artifacts/env
