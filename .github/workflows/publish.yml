@@ -39,5 +39,5 @@ jobs:
         uses: thollander/actions-comment-pull-request@v2
         with:
           message: |
-            Ваш пулреквест опубликован. Посмотреть можно [здесь](https://${{ BUILD_URL }}/${{ env.PR }}/)
+            Ваш пулреквест опубликован. Посмотреть можно [здесь](https://${{ env.BUILD_URL }}/${{ env.PR }}/)
           pr_number: ${{ env.PR }}
